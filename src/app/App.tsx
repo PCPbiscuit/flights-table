@@ -1,7 +1,13 @@
 import styles from './app.module.scss';
+import { FC } from 'react';
+import { ReactComponent as PlaneIcon } from '/public/logo.svg';
 
-function App() {
-  return <div className={styles.app}>Aviasales</div>;
-}
+const App: FC = () => {
+  return (
+    <div className={styles.app}>
+      <PlaneIcon />
+    </div>
+  );
+};
 
 export default App;
