@@ -1,0 +1,17 @@
+.transfers {
+  display: flex;
+  flex-direction: column;
+  h3 {
+    font-size: 0.75rem;
+    line-height: 100%;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+  }
+  div {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+  }
+}

@@ -1,6 +1,9 @@
 import { FC } from 'react';
-import Layout from './Layout';
+
 import { ReactComponent as PlaneIcon } from '/public/logo.svg';
+
+import { Button, Layout } from '../ui';
+import { Transfers } from '../features';
 
 const App: FC = () => {
   return (
@@ -8,7 +11,10 @@ const App: FC = () => {
       <header>
         <PlaneIcon />
       </header>
-      <main></main>
+      <main>
+        <Transfers />
+        <Button>Показать еще 5 билетов</Button>
+      </main>
     </Layout>
   );
 };
