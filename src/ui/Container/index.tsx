@@ -8,6 +8,6 @@ type Props = {
   className?: string;
 };
 
-export const Card: FC<Props> = ({ children, className }) => {
-  return <div className={cx(styles.card, className)}>{children}</div>;
+export const Container: FC<Props> = ({ children, className }) => {
+  return <div className={cx(styles.container, className)}>{children}</div>;
 };

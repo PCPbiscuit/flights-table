@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Card, Checkbox } from '@/ui';
+import { Card, Radio } from '@/ui';
 
 import styles from './styles.module.scss';
 
@@ -11,13 +11,13 @@ const data = [
   { id: 4, name: '3 пересадки' },
 ];
 
-export const Transfers: FC = () => {
+export const Companies: FC = () => {
   return (
-    <Card className={styles.card}>
-      <div className={styles.transfers}>
-        <h3>Количество пересадок</h3>
+    <Card>
+      <div className={styles.companies}>
+        <h3>Компания</h3>
         {data.map(d => (
-          <Checkbox label={d.name} id={d.name} name="transfer" />
+          <Radio label={d.name} id={d.name} name="transfer" />
         ))}
       </div>
     </Card>
