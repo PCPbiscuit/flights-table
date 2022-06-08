@@ -1,0 +1,39 @@
+.radio {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+  &:hover {
+    input {
+      border-color: #2196f3;
+    }
+    background-color: #f1fcff;
+  }
+  input {
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid #9abbce;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 0.25rem;
+    background-size: 0;
+    &:checked {
+      background-color: transparent;
+      border-color: #2196f3;
+      background-image: url('/public/circle.svg');
+      background-repeat: no-repeat;
+      background-position: 50%;
+      background-size: calc(100% - 8px);
+    }
+  }
+  label {
+    margin-left: 10px;
+    font-size: 0.875rem;
+    line-height: 150%;
+    width: 100%;
+    cursor: pointer;
+  }
+}

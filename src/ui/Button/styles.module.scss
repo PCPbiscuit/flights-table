@@ -1,0 +1,24 @@
+.button {
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 1rem 1.25rem;
+  background-color: white;
+  cursor: pointer;
+  transition-property: transform, background-color, color, border-color;
+  transition: 0.3s ease-out;
+  text-transform: uppercase;
+  border: 1px solid #dfe5ec;
+  &:hover {
+    transform: scale(1.05);
+    background-color: #f1fcff;
+  }
+}
+.primary {
+  border-color: #2196f3;
+  background-color: #2196f3;
+  color: white;
+  &:hover {
+    transform: scale(1.05);
+    background-color: #2196f3;
+  }
+}
