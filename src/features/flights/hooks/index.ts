@@ -8,6 +8,7 @@ type Flight = {
     dateEnd: number;
     dateStart: number;
     destination: string;
+    duration: number;
   };
   price: number;
   companyId: string;
