@@ -1,6 +1,8 @@
 import { FC } from 'react';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
-import { Card, Spinner } from '@/ui';
+import { Card } from '@/ui';
 import { convertMsToHM, converUnixToDate, pluralize } from '@/utils';
 
 import styles from './styles.module.scss';
@@ -20,7 +22,17 @@ const images: imagesType = {
 export const Flights: FC = () => {
   const { data: flights, isLoading } = useFlights();
   const { data: companies } = useCompanies();
-  if (isLoading) return <Spinner fullscreen />;
+  if (isLoading)
+    return (
+      <SkeletonTheme baseColor={'#fff'} highlightColor="#2196F3">
+        <Skeleton
+          count={15}
+          duration={1}
+          height={115}
+          style={{ marginBottom: '20px' }}
+        />
+      </SkeletonTheme>
+    );
   return (
     <div className={styles.flights}>
       {flights?.map(flight => {
