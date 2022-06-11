@@ -67,7 +67,7 @@ export const Flights: FC = () => {
   return (
     <div className={styles.flights}>
       {flightsData.map(flight => (
-        <Card className={styles.flight_card}>
+        <Card className={styles.flight_card} key={flight.id}>
           <div className={styles.flight_row}>
             <span className={styles.price}>{flight.price} ₽</span>
             <span
