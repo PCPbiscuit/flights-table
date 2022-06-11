@@ -13,3 +13,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.react-datepicker {
+  font-family: 'Open Sans', sans-serif;
+  border: none;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 10px 10px;
+}
+.react-datepicker__day-name {
+  color: #9ea9b7;
+}
+.react-datepicker__header {
+  border: none;
+  background-color: white;
+}
