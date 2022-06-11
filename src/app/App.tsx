@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { ReactComponent as PlaneIcon } from '/public/logo.svg';
 
 import { Button, Layout } from '../ui';
-import { Transfers, Companies, Tabs, Flights } from '../features';
+import { Transfers, Companies, Tabs, Flights, SearchBar } from '../features';
 
 import styles from './styles.module.scss';
 
@@ -13,6 +13,8 @@ const App: FC = () => {
       <header>
         <PlaneIcon />
       </header>
+      <SearchBar />
+      <div className={styles.separator} />
       <main className={styles.main}>
         <div className={styles.side}>
           <Transfers />

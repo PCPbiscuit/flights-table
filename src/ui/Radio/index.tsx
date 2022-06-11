@@ -6,12 +6,19 @@ type Props = {
   checked?: boolean;
   label?: string;
   id?: string;
+  value: string;
 };
 
-export const Radio: FC<Props> = ({ name, checked, label, id }) => {
+export const Radio: FC<Props> = ({ name, checked, label, id, value }) => {
   return (
     <div className={styles.radio}>
-      <input type="radio" name={name} checked={checked} id={id} />
+      <input
+        type="radio"
+        name={name}
+        defaultChecked={checked}
+        id={id}
+        value={value}
+      />
       {label && <label htmlFor={id}>{label}</label>}
     </div>
   );

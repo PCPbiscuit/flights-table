@@ -1,100 +1,86 @@
 import { FC } from 'react';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import { Card } from '@/ui';
+import { convertMsToHM, converUnixToDate, pluralize } from '@/utils';
 
 import styles from './styles.module.scss';
 import s7 from '/public/s7.png';
 import xiamen from '/public/xiamen.png';
+import { useFlights } from './hooks';
+import { useCompanies } from '../companies/hooks';
 
-const flightsData = [
-  {
-    id: 1,
-    destination: 'MOW - HKT',
-    time: '10:45 – 08:00',
-    duration: '21ч 15м',
-    connections: [],
-    airline: s7,
-    price: '13 400',
-  },
-  {
-    id: 2,
-    destination: 'MOW - HKT',
-    time: '10:45 – 08:00',
-    duration: '21ч 15м',
-    connections: ['HKG', 'JNB'],
-    airline: xiamen,
-    price: '13 400',
-  },
-  {
-    id: 3,
-    destination: 'MOW - HKT',
-    time: '10:45 – 08:00',
-    duration: '21ч 15м',
-    connections: [],
-    airline: s7,
-    price: '13 400',
-  },
-  {
-    id: 4,
-    destination: 'MOW - HKT',
-    time: '10:45 – 08:00',
-    duration: '21ч 15м',
-    connections: ['HKG', 'JNB'],
-    airline: xiamen,
-    price: '13 400',
-  },
-  {
-    id: 5,
-    destination: 'MOW - HKT',
-    time: '10:45 – 08:00',
-    duration: '21ч 15м',
-    connections: ['HKG', 'JNB'],
-    airline: s7,
-    price: '13 400',
-  },
-  {
-    id: 6,
-    destination: 'MOW - HKT',
-    time: '10:45 – 08:00',
-    duration: '21ч 15м',
-    connections: ['HKG', 'JNB'],
-    airline: xiamen,
-    price: '13 400',
-  },
-];
+type imagesType = {
+  [key: string]: string;
+};
+const images: imagesType = {
+  'S7 Airlines': s7,
+  XiamenAir: xiamen,
+};
 
 export const Flights: FC = () => {
+  const { data: flights, isLoading } = useFlights();
+  const { data: companies } = useCompanies();
+  if (isLoading)
+    return (
+      <SkeletonTheme baseColor={'#fff'} highlightColor="#2196F3">
+        <Skeleton
+          count={15}
+          duration={1}
+          height={115}
+          style={{ marginBottom: '20px' }}
+        />
+      </SkeletonTheme>
+    );
   return (
     <div className={styles.flights}>
-      {flightsData.map(flight => (
-        <Card className={styles.flight_card}>
-          <div className={styles.flight_row}>
-            <span className={styles.price}>{flight.price} ₽</span>
-            <span
-              className={styles.image}
-              style={{ backgroundImage: `url(${flight.airline})` }}
-            />
-          </div>
-          <div className={styles.flight_row}>
-            <div className={styles.entry}>
-              <span>{flight.destination}</span>
-              <span>{flight.time}</span>
-            </div>
-            <div className={styles.entry}>
-              <span>В пути</span>
-              <span>{flight.duration}</span>
-            </div>
-            <div className={styles.entry}>
-              <span>
-                {flight.connections.length > 0
-                  ? `${flight.connections.length} пересадки`
-                  : 'Нет пересадок'}
+      {flights?.map(flight => {
+        const company = companies?.find(
+          company => company.id == flight.companyId,
+        )?.name;
+        const image = company ? images[company] : '';
+        const duration = convertMsToHM(flight.info?.duration);
+        const startDate = converUnixToDate(flight.info.dateStart);
+        const endDate = converUnixToDate(flight.info.dateEnd);
+        return (
+          <Card className={styles.flight_card} key={flight.id}>
+            <div className={styles.flight_row}>
+              <span className={styles.price}>
+                {flight.price.toLocaleString('ru-RU')} ₽
               </span>
-              <span>{flight.connections?.join(', ')}</span>
+              {company && (
+                <span
+                  className={styles.image}
+                  style={{ backgroundImage: `url(${image})` }}
+                />
+              )}
             </div>
-          </div>
-        </Card>
-      ))}
+            <div className={styles.flight_row}>
+              <div className={styles.entry}>
+                <span>{flight.info?.destination}</span>
+                <span>{`${startDate} - ${endDate}`}</span>
+              </div>
+              <div className={styles.entry}>
+                <span>В пути</span>
+                <span>{duration}</span>
+              </div>
+              <div className={styles.entry}>
+                <span>
+                  {flight.info?.stops.length > 0
+                    ? `${pluralize(flight.info?.stops.length, [
+                        'пересадка',
+                        'пересадки',
+                        'пересадок',
+                      ])}`
+                    : 'Нет пересадок'}
+                </span>
+                <span>{flight.info?.stops?.join(', ')}</span>
+              </div>
+            </div>
+          </Card>
+        );
+      })}
     </div>
   );
 };

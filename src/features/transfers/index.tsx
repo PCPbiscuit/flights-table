@@ -17,7 +17,7 @@ export const Transfers: FC = () => {
       <div className={styles.transfers}>
         <h3>Количество пересадок</h3>
         {data.map(d => (
-          <Checkbox label={d.name} id={d.name} name="transfer" />
+          <Checkbox label={d.name} key={d.id} id={d.name} name="transfer" />
         ))}
       </div>
     </Card>

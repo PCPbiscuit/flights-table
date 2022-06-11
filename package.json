@@ -8,16 +8,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "normalize.css": "^8.0.1",
     "react": "^18.0.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.0.0",
+    "react-loading-skeleton": "^3.1.0",
+    "react-query": "^3.39.1",
     "sass": "^1.52.2",
     "vite-plugin-svgr": "^2.1.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.41",
     "@types/react": "^18.0.0",
+    "@types/react-datepicker": "^4.4.2",
     "@types/react-dom": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
