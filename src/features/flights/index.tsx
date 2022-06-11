@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Card } from '@/ui';
+import { Card, Spinner } from '@/ui';
 import { convertMsToHM, converUnixToDate, pluralize } from '@/utils';
 
 import styles from './styles.module.scss';
@@ -18,8 +18,9 @@ const images: imagesType = {
 };
 
 export const Flights: FC = () => {
-  const { data: flights } = useFlights();
+  const { data: flights, isLoading } = useFlights();
   const { data: companies } = useCompanies();
+  if (isLoading) return <Spinner fullscreen />;
   return (
     <div className={styles.flights}>
       {flights?.map(flight => {
@@ -33,7 +34,9 @@ export const Flights: FC = () => {
         return (
           <Card className={styles.flight_card} key={flight.id}>
             <div className={styles.flight_row}>
-              <span className={styles.price}>{flight.price} ₽</span>
+              <span className={styles.price}>
+                {flight.price.toLocaleString('ru-RU')} ₽
+              </span>
               {company && (
                 <span
                   className={styles.image}

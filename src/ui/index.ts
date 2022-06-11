@@ -4,3 +4,4 @@ export * from './Checkbox';
 export * from './Layout';
 export * from './Card';
 export * from './Container';
+export * from './Spinner';
