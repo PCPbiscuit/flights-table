@@ -11,9 +11,15 @@ export const Companies: FC = () => {
     <Card>
       <div className={styles.companies}>
         <h3>Компания</h3>
-        <Radio label="Все" name="transfer" />
-        {companies?.map(d => (
-          <Radio label={d.name} id={d.id} name="transfer" />
+        <Radio label="Все" name="transfer" id="all" value="" checked />
+        {companies?.map(company => (
+          <Radio
+            label={company.name}
+            id={company.id}
+            value={company.id}
+            name="transfer"
+            key={company.id}
+          />
         ))}
       </div>
     </Card>
