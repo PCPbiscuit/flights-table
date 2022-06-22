@@ -10,16 +10,16 @@ export const Companies: FC = () => {
   const { data: companies } = useCompanies();
   const [searchParams, setSearchParams] = useSearchParams();
   const handleChange = (value: string, name: string) => {
-    setSearchParams({ [name]: value });
+    setSearchParams(value ? { [name]: value } : {});
   };
-  const transferValue = searchParams.get('transfer');
+  const companyValue = searchParams.get('company');
   return (
     <Card>
       <div className={styles.companies}>
         <h3>Компания</h3>
         <Radio
           label="Все"
-          name="transfer"
+          name="company"
           id="all"
           value=""
           checked
@@ -30,10 +30,10 @@ export const Companies: FC = () => {
             label={company.name}
             id={company.id}
             value={company.id}
-            name="transfer"
+            name="company"
             key={company.id}
             onChange={handleChange}
-            checked={transferValue == company.id}
+            checked={companyValue == company.id}
           />
         ))}
       </div>
