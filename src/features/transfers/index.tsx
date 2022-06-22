@@ -16,13 +16,15 @@ export const Transfers: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const transferValue = searchParams.getAll('transfer');
   const handleChange = (value: string, name: string) => {
-    const arrayValue = transferValue ? [value, ...transferValue] : [value];
+    const arrayValue = transferValue ? [...transferValue, value] : [value];
+    const params = Object.fromEntries(searchParams.entries());
     if (transferValue.includes(value)) {
       const filtered = transferValue.filter(x => x != value);
-      return setSearchParams(value ? { [name]: filtered } : {});
+      return setSearchParams({ ...params, [name]: filtered });
     }
-    setSearchParams(value ? { [name]: arrayValue } : {});
+    setSearchParams({ ...params, [name]: arrayValue });
   };
+
   return (
     <Card className={styles.card}>
       <div className={styles.transfers}>
