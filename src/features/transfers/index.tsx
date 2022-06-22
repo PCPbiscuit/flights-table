@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { parseSearch, stringifyParams } from '@/utils';
 
 import { Card, Checkbox } from '@/ui';
 
@@ -12,17 +13,20 @@ const data = [
   { id: '4', name: '3 пересадки', value: '3' },
 ];
 
+type Props = {
+  transfer?: string[];
+};
+
 export const Transfers: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const transferValue = searchParams.getAll('transfer');
+  const params: Props = parseSearch(searchParams);
   const handleChange = (value: string, name: string) => {
-    const arrayValue = transferValue ? [...transferValue, value] : [value];
-    const params = Object.fromEntries(searchParams.entries());
-    if (transferValue.includes(value)) {
-      const filtered = transferValue.filter(x => x != value);
-      return setSearchParams({ ...params, [name]: filtered });
+    const arrayValue = params?.transfer ? [...params.transfer, value] : [value];
+    if (params.transfer?.includes(value)) {
+      const filtered = params.transfer.filter(x => x != value);
+      return setSearchParams(stringifyParams({ ...params, [name]: filtered }));
     }
-    setSearchParams({ ...params, [name]: arrayValue });
+    setSearchParams(stringifyParams({ ...params, [name]: arrayValue }));
   };
 
   return (
@@ -37,7 +41,7 @@ export const Transfers: FC = () => {
             name="transfer"
             value={d.value}
             onChange={handleChange}
-            checked={transferValue.includes(d.value)}
+            checked={params.transfer?.includes(d.value)}
           />
         ))}
       </div>
