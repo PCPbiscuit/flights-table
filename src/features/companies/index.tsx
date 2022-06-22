@@ -10,7 +10,8 @@ export const Companies: FC = () => {
   const { data: companies } = useCompanies();
   const [searchParams, setSearchParams] = useSearchParams();
   const handleChange = (value: string, name: string) => {
-    setSearchParams(value ? { [name]: value } : {});
+    const params = Object.fromEntries(searchParams.entries());
+    setSearchParams({ ...params, [name]: value });
   };
   const companyValue = searchParams.get('company');
   return (
