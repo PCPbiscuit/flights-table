@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { parseSearch, stringifyParams } from '@/utils';
 
 import { Card, Radio } from '@/ui';
 
@@ -10,8 +11,9 @@ export const Companies: FC = () => {
   const { data: companies } = useCompanies();
   const [searchParams, setSearchParams] = useSearchParams();
   const handleChange = (value: string, name: string) => {
-    const params = Object.fromEntries(searchParams.entries());
-    setSearchParams({ ...params, [name]: value });
+    const params = parseSearch(searchParams);
+    const qs = stringifyParams({ ...params, [name]: value });
+    setSearchParams(qs);
   };
   const companyValue = searchParams.get('company');
   return (
