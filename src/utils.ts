@@ -1,3 +1,5 @@
+import qs, { ParsedQs } from 'qs';
+
 function padTo2Digits(num: number) {
   return num.toString().padStart(2, '0');
 }
@@ -41,4 +43,22 @@ export function pluralize(count: number, words: string[], withCount = true) {
             : cases[Math.min(Math.floor(count) % 10, 5)]
         ])
   );
+}
+
+export function parseSearch(search: URLSearchParams) {
+  const string = search.toString();
+  const parsedString = qs.parse(string, {
+    ignoreQueryPrefix: true,
+  });
+  return parsedString;
+}
+
+export function stringifyParams(params: ParsedQs) {
+  const string = qs.stringify(params, {
+    addQueryPrefix: true,
+    arrayFormat: 'brackets',
+    skipNulls: true,
+    encode: false,
+  });
+  return string;
 }
