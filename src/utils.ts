@@ -70,7 +70,6 @@ export function filterData(
   filters: { [key: string]: string | string[] },
 ) {
   if (!filters) return data;
-
   const filtered = data
     .filter(flight =>
       filters.companyId ? flight.companyId === filters.companyId : flight,
@@ -80,7 +79,13 @@ export function filterData(
         ? filters.stops.includes(flight.info.stops.length.toString())
         : flight,
     )
-    .filter(flight => flight.info.origin == filters.origin ?? flight)
-    .filter(flight => flight.info.destination == filters.destination ?? flight);
+    .filter(flight =>
+      filters.origin ? flight.info.origin == filters.origin : flight,
+    )
+    .filter(flight =>
+      filters.destination
+        ? flight.info.destination == filters.destination
+        : flight,
+    );
   return filtered;
 }
