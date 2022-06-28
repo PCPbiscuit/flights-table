@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { useSearchParams } from 'react-router-dom';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 import { Card } from '@/ui';
@@ -20,7 +21,8 @@ const images: imagesType = {
 };
 
 export const Flights: FC = () => {
-  const { data: flights, isLoading } = useFlights();
+  const [searchParams] = useSearchParams();
+  const { data: flights, isLoading } = useFlights(searchParams);
   const { data: companies } = useCompanies();
   if (isLoading)
     return (

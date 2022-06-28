@@ -12,7 +12,10 @@ export const Companies: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const handleChange = (value: string, name: string) => {
     const params = parseSearch(searchParams);
-    const qs = stringifyParams({ ...params, [name]: value });
+
+    const qs = value
+      ? stringifyParams({ ...params, [name]: value })
+      : stringifyParams({ ...params, [name]: undefined });
     setSearchParams(qs);
   };
   const companyValue = searchParams.get('company');

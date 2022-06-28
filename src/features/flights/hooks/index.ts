@@ -1,4 +1,5 @@
 import { useQuery, QueryOptions } from 'react-query';
+import { parseSearch, filterData } from '@/utils';
 
 type Flight = {
   id: string;
@@ -14,11 +15,22 @@ type Flight = {
   companyId: string;
 };
 
-type FlightsCollection = Flight[];
+export type FlightsCollection = Flight[];
 
-export const useFlights = (options?: QueryOptions<FlightsCollection>) => {
-  return useQuery<FlightsCollection>([`163b5e66df9f2741243e`], {
+export const useFlights = (
+  params?: URLSearchParams,
+  options?: QueryOptions<FlightsCollection>,
+) => {
+  const query = useQuery<FlightsCollection>([`163b5e66df9f2741243e`], {
     refetchOnWindowFocus: false,
     ...options,
   });
+  const parsedQs = params && parseSearch(params);
+  const filtered =
+    parsedQs &&
+    filterData(query.data || [], {
+      stops: parsedQs.transfer as string[],
+      companyId: parsedQs.company as string,
+    });
+  return { ...query, data: filtered };
 };

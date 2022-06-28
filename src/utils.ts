@@ -1,5 +1,7 @@
 import qs, { ParsedQs } from 'qs';
 
+import { FlightsCollection } from './features/flights/hooks';
+
 function padTo2Digits(num: number) {
   return num.toString().padStart(2, '0');
 }
@@ -61,4 +63,22 @@ export function stringifyParams(params: ParsedQs) {
     encode: false,
   });
   return string;
+}
+
+export function filterData(
+  data: FlightsCollection,
+  filters: { [key: string]: string | string[] },
+) {
+  if (!filters) return data;
+
+  const filtered = data
+    .filter(flight =>
+      filters.companyId ? flight.companyId === filters.companyId : flight,
+    )
+    .filter(flight =>
+      filters.stops
+        ? filters.stops.includes(flight.info.stops.length.toString())
+        : flight,
+    );
+  return filtered;
 }
