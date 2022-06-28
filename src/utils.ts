@@ -86,6 +86,12 @@ export function filterData(
       filters.destination
         ? flight.info.destination == filters.destination
         : flight,
+    )
+    .filter(flight =>
+      filters.dateStart && filters.dateEnd
+        ? flight.info.dateStart >= Number(filters.dateStart) &&
+          flight.info.dateEnd <= Number(filters.dateEnd)
+        : flight,
     );
   return filtered;
 }

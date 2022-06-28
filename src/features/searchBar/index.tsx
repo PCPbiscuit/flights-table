@@ -32,6 +32,14 @@ export const SearchBar: FC = () => {
       : stringifyParams({ ...params, [name]: undefined });
     setSearchParams(qs);
   };
+  const handleDateChange = (date: Date, name: string) => {
+    const qs = stringifyParams({
+      ...params,
+      [name]: date.getTime().toString(),
+    });
+    setSearchParams(qs);
+  };
+  console.log(params.dateStart);
   return (
     <div className={styles.search}>
       <InputField
@@ -70,8 +78,25 @@ export const SearchBar: FC = () => {
             <option value={destination} />
           ))}
       </datalist>
-      <DateField className={styles.search_field} />
-      <DateField className={styles.search_field} />
+      <DateField
+        className={styles.search_field}
+        name="dateStart"
+        onChange={handleDateChange}
+        selected={
+          params.dateStart ? new Date(Number(params.dateStart)) : new Date()
+        }
+      />
+      <DateField
+        className={styles.search_field}
+        name="dateEnd"
+        onChange={handleDateChange}
+        selected={
+          params.dateEnd ? new Date(Number(params.dateEnd)) : new Date()
+        }
+        minDate={
+          params.dateStart ? new Date(Number(params.dateStart)) : new Date()
+        }
+      />
     </div>
   );
 };

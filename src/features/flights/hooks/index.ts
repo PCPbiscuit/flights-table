@@ -33,6 +33,8 @@ export const useFlights = (
       companyId: parsedQs.company as string,
       origin: parsedQs.origin as string,
       destination: parsedQs.destination as string,
+      dateStart: parsedQs.dateStart as string,
+      dateEnd: parsedQs.dateEnd as string,
     });
   return { ...query, data: filtered };
 };

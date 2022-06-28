@@ -23,9 +23,9 @@ const App: FC = () => {
         <div className={styles.info}>
           <Tabs />
           <Flights />
-          <Button variant="primary" className={styles.moreBtn}>
+          {/* <Button variant="primary" className={styles.moreBtn}>
             Показать еще 5 билетов
-          </Button>
+          </Button> */}
         </div>
       </main>
     </Layout>
