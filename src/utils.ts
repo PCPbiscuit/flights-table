@@ -79,6 +79,8 @@ export function filterData(
       filters.stops
         ? filters.stops.includes(flight.info.stops.length.toString())
         : flight,
-    );
+    )
+    .filter(flight => flight.info.origin == filters.origin ?? flight)
+    .filter(flight => flight.info.destination == filters.destination ?? flight);
   return filtered;
 }

@@ -35,6 +35,7 @@ export const Flights: FC = () => {
         />
       </SkeletonTheme>
     );
+
   return (
     <div className={styles.flights}>
       {flights?.map(flight => {
@@ -60,7 +61,9 @@ export const Flights: FC = () => {
             </div>
             <div className={styles.flight_row}>
               <div className={styles.entry}>
-                <span>{flight.info?.destination}</span>
+                <span>
+                  {flight.info?.origin} - {flight.info?.destination}
+                </span>
                 <span>{`${startDate} - ${endDate}`}</span>
               </div>
               <div className={styles.entry}>

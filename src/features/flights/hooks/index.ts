@@ -31,6 +31,8 @@ export const useFlights = (
     filterData(query.data || [], {
       stops: parsedQs.transfer as string[],
       companyId: parsedQs.company as string,
+      origin: parsedQs.origin as string,
+      destination: parsedQs.destination as string,
     });
   return { ...query, data: filtered };
 };
