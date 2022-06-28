@@ -1,3 +1,7 @@
+import qs, { ParsedQs } from 'qs';
+
+import { FlightsCollection } from './features/flights/hooks';
+
 function padTo2Digits(num: number) {
   return num.toString().padStart(2, '0');
 }
@@ -41,4 +45,53 @@ export function pluralize(count: number, words: string[], withCount = true) {
             : cases[Math.min(Math.floor(count) % 10, 5)]
         ])
   );
+}
+
+export function parseSearch(search: URLSearchParams) {
+  const string = search.toString();
+  const parsedString = qs.parse(string, {
+    ignoreQueryPrefix: true,
+  });
+  return parsedString;
+}
+
+export function stringifyParams(params: ParsedQs) {
+  const string = qs.stringify(params, {
+    addQueryPrefix: true,
+    arrayFormat: 'brackets',
+    skipNulls: true,
+    encode: false,
+  });
+  return string;
+}
+
+export function filterData(
+  data: FlightsCollection,
+  filters: { [key: string]: string | string[] },
+) {
+  if (!filters) return data;
+  const filtered = data
+    .filter(flight =>
+      filters.companyId ? flight.companyId === filters.companyId : flight,
+    )
+    .filter(flight =>
+      filters.stops
+        ? filters.stops.includes(flight.info.stops.length.toString())
+        : flight,
+    )
+    .filter(flight =>
+      filters.origin ? flight.info.origin == filters.origin : flight,
+    )
+    .filter(flight =>
+      filters.destination
+        ? flight.info.destination == filters.destination
+        : flight,
+    )
+    .filter(flight =>
+      filters.dateStart && filters.dateEnd
+        ? flight.info.dateStart >= Number(filters.dateStart) &&
+          flight.info.dateEnd <= Number(filters.dateEnd)
+        : flight,
+    );
+  return filtered;
 }

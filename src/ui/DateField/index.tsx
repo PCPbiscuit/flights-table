@@ -11,6 +11,10 @@ registerLocale('ru', ru);
 type Props = {
   children?: React.ReactNode;
   className?: string;
+  selected?: Date;
+  onChange: (arg0: Date, name: string) => void;
+  name: string;
+  minDate?: Date;
 };
 
 const months = [
@@ -28,14 +32,26 @@ const months = [
   'Декабрь',
 ];
 
-export const DateField: FC<Props> = ({ className }) => {
-  const [startDate, setStartDate] = useState(new Date());
+export const DateField: FC<Props> = ({
+  className,
+  selected,
+  onChange,
+  name,
+  minDate,
+}) => {
+  const [startDate, setStartDate] = useState(selected || new Date());
+  const handleChange = (date: Date) => {
+    setStartDate(date);
+    onChange && onChange(date, name);
+  };
+  console.log(minDate);
   return (
     <div className={cx(styles.wrapper, className)}>
       <DatePicker
         selected={startDate}
-        onChange={(date: Date) => setStartDate(date)}
+        onChange={handleChange}
         className={styles.date}
+        minDate={minDate || new Date()}
         dayClassName={() => styles.day}
         locale="ru"
         showPopperArrow={false}
